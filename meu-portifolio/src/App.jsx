@@ -1,15 +1,22 @@
 import './App.css';
-import Hero from './componets/hero.jsx';
 import Navbar from './componets/navbar.jsx';
-import Skills from './componets/skills.jsx'; 
-
+import Hero from './componets/Hero.jsx';
+import About from './componets/About.jsx';
+import Skills from './componets/skills.jsx';
+import Projects from './componets/Projects.jsx';
+import Contact from './componets/Contact.jsx';
 
 function App() {
   return (
     <>
-      <Navbar />  
-      <Hero />  
-      <skills/>
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
     </>
   );
 }

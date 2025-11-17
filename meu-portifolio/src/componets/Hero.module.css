@@ -1,40 +1,93 @@
 .hero {
+  min-height: 95vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  /* Isso fará a seção ter quase a altura total da tela */
-  min-height: 90vh; 
-  padding: 2rem;
-  background-color: #1e1e1e; /* Um fundo escuro */
+  padding: 4rem 2rem 6rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85), #050607 80%);
+}
+
+.heroContent {
+  max-width: 900px;
+  margin: 0 auto;
   text-align: center;
-  color: #fff;
+}
+
+.tagline {
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: #00bfff;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
 }
 
 .heroContent h1 {
-  font-size: 3.5rem; /* Tamanho grande para o nome */
-  margin-bottom: 1rem;
-  /* Uma cor de destaque */
-  color: #00bfff; 
+  font-size: clamp(2.8rem, 8vw, 4rem);
+  margin: 0 0 1.2rem;
 }
 
-.heroContent p {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: #ccc; /* Um cinza claro para o subtítulo */
+.heroContent h1 span {
+  color: #00bfff;
 }
 
-.heroButton {
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #00bfff; /* Azul */
-  border: none;
-  border-radius: 5px;
+.lead {
+  color: #c6c9d4;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 0 auto 2.5rem;
+  max-width: 640px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.heroButton:hover {
-  background-color: #009acd; /* Azul um pouco mais escuro */
+.primaryBtn {
+  background: linear-gradient(120deg, #00bfff, #0070ff);
+  color: #fff;
+}
+
+.secondaryBtn {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.primaryBtn:hover,
+.secondaryBtn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.metrics {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.metrics li {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #d5d9e5;
+}
+
+.metrics strong {
+  font-size: 2rem;
+  color: #fff;
 }

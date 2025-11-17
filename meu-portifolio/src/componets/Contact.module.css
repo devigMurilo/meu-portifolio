@@ -1,0 +1,101 @@
+.contact {
+  padding: 6rem 2rem 7rem;
+  background: #050607;
+  color: #f5f7fa;
+}
+
+.wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+  align-items: start;
+}
+
+.copy p {
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.8rem;
+  color: #00bfff;
+  margin-bottom: 0.5rem;
+}
+
+.copy h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.7rem);
+}
+
+.copy span {
+  display: block;
+  margin: 0.8rem 0 1.4rem;
+  color: #a5acbe;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.links a {
+  color: #f7f8fb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.links a:hover {
+  color: #00bfff;
+}
+
+.form {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: #c7ccdd;
+}
+
+.form input,
+.form textarea {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: #00bfff;
+}
+
+.form button {
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(120deg, #00bfff, #0070ff);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.95rem 1.2rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.form button:hover {
+  opacity: 0.85;
+}
+

@@ -1,0 +1,40 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Isso fará a seção ter quase a altura total da tela */
+  min-height: 90vh; 
+  padding: 2rem;
+  background-color: #1e1e1e; /* Um fundo escuro */
+  text-align: center;
+  color: #fff;
+}
+
+.heroContent h1 {
+  font-size: 3.5rem; /* Tamanho grande para o nome */
+  margin-bottom: 1rem;
+  /* Uma cor de destaque */
+  color: #00bfff; 
+}
+
+.heroContent p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #ccc; /* Um cinza claro para o subtítulo */
+}
+
+.heroButton {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #00bfff; /* Azul */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.heroButton:hover {
+  background-color: #009acd; /* Azul um pouco mais escuro */
+}

@@ -1,0 +1,50 @@
+/* src/components/Skills.module.css */
+
+.skillsSection {
+  padding: 4rem 2rem;
+  background-color: #282c34; /* Fundo levemente diferente do Hero/Navbar */
+  color: #fff;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #00bfff; /* Cor de destaque */
+}
+
+/* Configuração do Grid para as habilidades */
+.skillsGrid {
+  display: grid;
+  /* Cria colunas que se ajustam automaticamente, com tamanho mínimo de 150px */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 30px; /* Espaço entre os "cards" de habilidades */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.skillItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #3c3f47;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skillItem:hover {
+  transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.icon {
+  font-size: 3rem; /* Tamanho dos emojis/ícones */
+  margin-bottom: 10px;
+}
+
+.skillName {
+  font-size: 1.1rem;
+  font-weight: 600;
+}

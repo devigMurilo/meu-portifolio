@@ -1,32 +1,42 @@
 // src/components/Skills.jsx
 
 import React from 'react';
+import {
+  SiJavascript,
+  SiReact,
+  SiHtml5,
+  SiCss3,
+  SiGithub,
+  SiNodedotjs,
+  SiTailwindcss,
+  SiBootstrap,
+  SiPython,
+  SiDjango,
+} from 'react-icons/si';
 import styles from './skills.module.css';
 
-// 1. Array de habilidades (você pode adicionar mais ou mudar os emojis)
 const techSkills = [
-  { name: "JavaScript", icon: "💻" },
-  { name: "React.js", icon: "⚛️" },
-  { name: "HTML5", icon: "🌐" },
-  { name: "CSS3", icon: "🎨" },
-  { name: "Git & GitHub", icon: "🔗" },
-  { name: "Node.js", icon: "💚" },
-  { name: "Tailwind CSS", icon: "💨" },
-  { name: "Sass/SCSS", icon: "📘" },
-  // Adicione suas habilidades aqui!
+  { name: 'JavaScript', icon: SiJavascript, color: '#f7df1e' },
+  { name: 'React.js', icon: SiReact, color: '#61dafb' },
+  { name: 'HTML5', icon: SiHtml5, color: '#e44d26' },
+  { name: 'CSS3', icon: SiCss3, color: '#1572b6' },
+  { name: 'Git & GitHub', icon: SiGithub, color: '#ffffff' },
+  { name: 'Node.js', icon: SiNodedotjs, color: '#3c873a' },
+  { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#38bdf8' },
+  { name: 'Bootstrap', icon: SiBootstrap, color: '#7952b3' },
+  { name: 'Python', icon: SiPython, color: '#ffd43b' },
+  { name: 'Django', icon: SiDjango, color: '#0c4b33' },
 ];
 
 function Skills() {
   return (
-    // IMPORTANTE: Adicionamos o ID 'skills' para a Navbar funcionar!
     <section id="skills" className={styles.skillsSection}>
       <h2 className={styles.title}>Minhas Habilidades</h2>
       <div className={styles.skillsGrid}>
-        {/* 2. Usamos o .map() para renderizar cada item da lista */}
-        {techSkills.map((skill, index) => (
-          <div key={index} className={styles.skillItem}>
-            <span className={styles.icon}>{skill.icon}</span>
-            <p className={styles.skillName}>{skill.name}</p>
+        {techSkills.map(({ name, icon: Icon, color }) => (
+          <div key={name} className={styles.skillItem}>
+            <Icon className={styles.icon} style={{ color }} aria-hidden="true" />
+            <p className={styles.skillName}>{name}</p>
           </div>
         ))}
       </div>

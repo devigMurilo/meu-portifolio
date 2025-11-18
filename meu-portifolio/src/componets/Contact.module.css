@@ -42,10 +42,19 @@
   color: #f7f8fb;
   text-decoration: none;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .links a:hover {
   color: #00bfff;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .form {
@@ -98,4 +107,23 @@
 .form button:hover {
   opacity: 0.85;
 }
+
+.form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.statusMessage {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.statusSuccess {
+  color: #4ade80;
+}
+
+.statusError {
+  color: #f87171;
+}
+
 

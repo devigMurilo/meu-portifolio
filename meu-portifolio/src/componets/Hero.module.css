@@ -12,6 +12,21 @@
   text-align: center;
 }
 
+.profileImageWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.profileImage {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00bfff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
 .tagline {
   text-transform: uppercase;
   letter-spacing: 0.32em;

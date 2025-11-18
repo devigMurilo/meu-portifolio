@@ -2,12 +2,21 @@
 
 import React from 'react';
 import styles from './Hero.module.css';
+import profileImage from '../assets/fotonacasadepraia.jpg';
 
 function Hero() {
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.heroContent}>
-        <p className={styles.tagline}>Software Engineer · Product Mindset</p>
+        <div className={styles.profileImageWrapper}>
+          <img
+            src={profileImage}
+            alt="Foto de Igor"
+            className={styles.profileImage}
+          />
+        </div>
+        <p className={styles.tagline}>· Software Development | Web Development · </p>
+        <p className={styles.tagline}>· Product Mindset · </p>
         <h1>
           Olá, eu sou <span>Igor</span>
         </h1>
@@ -24,14 +33,6 @@ function Hero() {
           </a>
         </div>
         <ul className={styles.metrics}>
-          <li>
-            <strong>25+</strong>
-            <span>projetos entregues</span>
-          </li>
-          <li>
-            <strong>5</strong>
-            <span>produtos em produção</span>
-          </li>
           <li>
             <strong>∞</strong>
             <span>vontade de aprender</span>

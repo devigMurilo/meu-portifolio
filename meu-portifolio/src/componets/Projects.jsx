@@ -3,23 +3,18 @@ import styles from './Projects.module.css';
 
 const projects = [
   {
-    title: 'Ignite Notes',
-    description: 'Aplicação full-stack para anotações colaborativas com editor rich-text e sincronização em tempo real.',
-    stack: ['React', 'Node.js', 'Socket.io', 'PostgreSQL'],
-    link: 'https://github.com/seuusuario/ignite-notes',
+    title: 'BE-Desk',
+    description: ' O projeto consiste no desenvolvimento de um sistema online de cadastro, reservas e solicitação de materiais esportivos para o Bloco E do IFRN-SPP. O sistema busca substituir o modelo atual, que depende de atendimentos presenciais, por uma solução digital, prática e acessível a toda a comunidade acadêmica.',
+    stack: ['django', 'sqlite', 'bootstrap', 'html', 'css'],
+    link: 'https://github.com/WilliannyLima/BE-Desk',
   },
   {
-    title: 'GoTravel',
-    description: 'Plataforma de reservas para agências boutique com dashboard administrativo e integração com APIs externas.',
-    stack: ['Next.js', 'Prisma', 'Tailwind CSS'],
-    link: 'https://github.com/seuusuario/gotravel',
+    title: 'labirinto',
+    description: 'jogo de labirinto feito com javascript.',
+    stack: ['html', 'css', 'javascript',],
+    link: 'https://github.com/eduardolemoscosta/projeto-banco-de-dados-semana-infor.git',
   },
-  {
-    title: 'DevJobs',
-    description: 'Job board responsivo para vagas tech, com filtro por habilidades e CMS headless para criação de posts.',
-    stack: ['Vue', 'Supabase', 'TypeScript'],
-    link: 'https://github.com/seuusuario/devjobs',
-  },
+  
 ];
 
 function Projects() {
@@ -54,4 +49,5 @@ function Projects() {
 }
 
 export default Projects;
+
 

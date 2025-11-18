@@ -27,15 +27,15 @@ function About() {
           </li>
           <li>
             <span>Stack principal</span>
-            <strong>React · Node · SQL</strong>
+            <strong>django · python · SQL</strong>
           </li>
           <li>
             <span>Localização</span>
-            <strong>São Paulo, BR</strong>
+            <strong>São Tomé, Rio Grande do Norte</strong>
           </li>
           <li>
             <span>Disponibilidade</span>
-            <strong>Freelance & PJ</strong>
+            <strong>Freelance & Estagio</strong>
           </li>
         </ul>
       </div>
@@ -44,4 +44,5 @@ function About() {
 }
 
 export default About;
+
 

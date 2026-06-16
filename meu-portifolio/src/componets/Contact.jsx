@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { SiLinkedin, SiGithub } from 'react-icons/si';
+import { motion } from 'framer-motion';
+import { SiLinkedin, SiGithub, SiInstagram } from 'react-icons/si';
 import styles from './Contact.module.css';
 
 function Contact() {
@@ -57,11 +58,17 @@ function Contact() {
   return (
     <section id="contact" className={styles.contact}>
       <div className={styles.wrapper}>
-        <div className={styles.copy}>
+        <motion.div 
+          className={styles.copy}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <p>Vamos conversar</p>
           <h2>Precisa tirar uma ideia do papel?</h2>
           <span>
-            Envie um e-mail ou agende uma call — respondo em até 24h úteis.
+            Envie um e-mail ou preencha o formulário — respondo em até 24h úteis.
           </span>
           <div className={styles.links}>
             <a href="mailto:igormurilo.ac.21@gmail.com">igormurilo.ac.21@gmail.com</a>
@@ -78,11 +85,22 @@ function Contact() {
                 <SiGithub aria-hidden="true" />
                 <span>GitHub</span>
               </a>
+              <a href="https://instagram.com/_imurilo" target="_blank" rel="noreferrer">
+                <SiInstagram aria-hidden="true" />
+                <span>Instagram</span>
+              </a>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <motion.form 
+          className={styles.form} 
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <label>
             Nome
             <input
@@ -130,12 +148,10 @@ function Contact() {
               {status.message}
             </p>
           )}
-        </form>
+        </motion.form>
       </div>
     </section>
   );
 }
 
 export default Contact;
-
-

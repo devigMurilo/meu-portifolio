@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "title": "BE-Desk",
+    "description": "O projeto consiste no desenvolvimento de um sistema online de cadastro, reservas e solicitação de materiais esportivos para o Bloco E do IFRN-SPP. O sistema busca substituir o modelo atual, que depende de atendimentos presenciais, por uma solução digital, prática e acessível a toda a comunidade acadêmica.",
+    "stack": [
+      "django",
+      "sqlite",
+      "bootstrap",
+      "html",
+      "css"
+    ],
+    "link": "https://github.com/WilliannyLima/BE-Desk",
+    "published": true
+  },
+  {
+    "id": 2,
+    "title": "Labirinto",
+    "description": "Jogo de labirinto feito com JavaScript.",
+    "stack": [
+      "html",
+      "css",
+      "javascript"
+    ],
+    "link": "https://github.com/eduardolemoscosta/projeto-banco-de-dados-semana-infor.git",
+    "published": true
+  }
+]

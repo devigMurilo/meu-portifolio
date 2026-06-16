@@ -1,34 +1,59 @@
-/* src/components/Navbar.module.css */
-
 .navbar {
-  /* Fixa a Navbar no topo da tela */
   position: sticky;
   top: 0;
-  
   display: flex;
-  justify-content: space-between; /* Espaçamento entre logo e links */
+  justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
-  background-color: #121212; /* Um fundo bem escuro, combinando com o Hero */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  z-index: 100; /* Garante que fique acima de outros elementos */
+  padding: 1.2rem 5%;
+  background-color: rgba(8, 11, 18, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--surface-border);
+  z-index: 100;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #00bfff; /* Cor de destaque */
-  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--accent-primary);
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
 }
 
 .links a {
-  margin-left: 20px;
-  color: #ccc; /* Cor do link */
-  text-decoration: none;
-  font-size: 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
   transition: color 0.3s ease;
 }
 
 .links a:hover {
-  color: #fff; /* Cor ao passar o mouse */
+  color: var(--accent-primary);
+}
+
+.links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -6px;
+  left: 0;
+  background-color: var(--accent-primary);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.links a:hover::after {
+  width: 100%;
 }

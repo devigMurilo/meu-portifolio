@@ -1,50 +1,137 @@
-/* src/components/Skills.module.css */
-
 .skillsSection {
-  padding: 4rem 2rem;
-  background-color: #282c34; /* Fundo levemente diferente do Hero/Navbar */
-  color: #fff;
+  padding: 8rem 5%;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
   text-align: center;
+  margin-bottom: 4rem;
+}
+
+.subtitle {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: var(--accent-primary);
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 .title {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color: #00bfff; /* Cor de destaque */
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  color: var(--text-main);
+  line-height: 1.2;
 }
 
-/* Configuração do Grid para as habilidades */
+.categoryBlock {
+  margin-bottom: 3.5rem;
+}
+
+.categoryBlock:last-child {
+  margin-bottom: 0;
+}
+
+.categoryTitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--accent-primary);
+}
+
 .skillsGrid {
   display: grid;
-  /* Cria colunas que se ajustam automaticamente, com tamanho mínimo de 150px */
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 30px; /* Espaço entre os "cards" de habilidades */
-  max-width: 1000px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.25rem;
 }
 
 .skillItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #3c3f47;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1.8rem 1rem 1.4rem;
+  border-radius: 16px;
+  background: var(--surface-color);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--surface-border);
+  transition: all 0.3s ease;
+  cursor: default;
 }
 
 .skillItem:hover {
-  transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(20, 24, 36, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  margin-bottom: 1rem;
+  border: 1px solid;
+  transition: transform 0.3s ease;
+}
+
+.skillItem:hover .iconWrapper {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .icon {
-  font-size: 3rem; /* Tamanho dos emojis/ícones */
-  margin-bottom: 10px;
+  font-size: 1.7rem;
 }
 
 .skillName {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: var(--text-main);
+  margin: 0 0 0.75rem;
+  text-align: center;
+}
+
+.levelDots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.skillItem:hover .dot {
+  transform: scale(1.2);
+}
+
+.dotFilled {
+  border-color: transparent;
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem;
+  font-size: 1.1rem;
 }

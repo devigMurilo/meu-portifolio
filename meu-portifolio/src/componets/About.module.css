@@ -15,31 +15,33 @@
 
 .tag {
   display: inline-block;
-  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(184, 184, 184, 0.15);
+  border: 1px solid rgba(184, 184, 184, 0.12);
   padding: 0.3rem 0.8rem;
   border-radius: 2px;
 }
 
 .heading {
   font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 700;
+  line-height: 1.15;
   color: var(--text-main);
   margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .text {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.8;
   color: var(--text-muted);
   margin: 0 0 1.2rem;
+  font-weight: 400;
 }
 
 .infoRow {
@@ -48,6 +50,12 @@
   align-items: center;
   padding: 1.2rem 0;
   border-bottom: 1px solid var(--surface-border);
+  transition: padding 0.3s ease, border-color 0.3s ease;
+}
+
+.infoRow:hover {
+  padding-left: 0.5rem;
+  border-bottom-color: rgba(229, 216, 192, 0.12);
 }
 
 .infoRow:first-child {
@@ -60,17 +68,18 @@
 }
 
 .infoLabel {
-  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--text-dim);
 }
 
 .infoValue {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--text-main);
 }
 

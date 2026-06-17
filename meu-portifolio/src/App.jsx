@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import './App.css';
 import Navbar from './componets/navbar.jsx';
 import Hero from './componets/Hero.jsx';
@@ -8,6 +8,11 @@ import Projects from './componets/Projects.jsx';
 import Experience from './componets/Experience.jsx';
 import Contact from './componets/Contact.jsx';
 import Admin from './componets/Admin.jsx';
+import LenisScroll from './componets/LenisScroll';
+import TopographicLines from './componets/TopographicLines';
+import CustomCursor from './componets/CustomCursor';
+
+const ParticlesBackground = lazy(() => import('./componets/ParticlesBackground.jsx'));
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(window.location.hash === '#admin');
@@ -25,7 +30,12 @@ function App() {
   }
 
   return (
-    <>
+    <LenisScroll>
+      <CustomCursor />
+      <Suspense fallback={null}>
+        <ParticlesBackground />
+      </Suspense>
+      <TopographicLines />
       <Navbar />
       <main>
         <Hero />
@@ -35,7 +45,7 @@ function App() {
         <Experience />
         <Contact />
       </main>
-    </>
+    </LenisScroll>
   );
 }
 

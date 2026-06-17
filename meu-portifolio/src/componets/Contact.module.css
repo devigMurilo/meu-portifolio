@@ -62,6 +62,8 @@
 .social a:hover {
   color: var(--text-main);
   border-color: rgba(229, 216, 192, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .form {

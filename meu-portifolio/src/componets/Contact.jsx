@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiSend, FiGithub, FiLinkedin, FiInstagram } from 'react-icons/fi';
+import MagneticWrapper from './MagneticWrapper';
 import styles from './Contact.module.css';
 
 function Contact() {
@@ -47,15 +48,15 @@ function Contact() {
           </p>
 
           <div className={styles.social}>
-            <a href="https://github.com/devigMurilo" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <MagneticWrapper as="a" href="https://github.com/devigMurilo" target="_blank" rel="noreferrer" aria-label="GitHub" strength={0.3}>
               <FiGithub />
-            </a>
-            <a href="https://www.linkedin.com/in/igor-murilo-68a487386/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            </MagneticWrapper>
+            <MagneticWrapper as="a" href="https://www.linkedin.com/in/igor-murilo-68a487386/" target="_blank" rel="noreferrer" aria-label="LinkedIn" strength={0.3}>
               <FiLinkedin />
-            </a>
-            <a href="https://instagram.com/_imurilo" target="_blank" rel="noreferrer" aria-label="Instagram">
+            </MagneticWrapper>
+            <MagneticWrapper as="a" href="https://instagram.com/_imurilo" target="_blank" rel="noreferrer" aria-label="Instagram" strength={0.3}>
               <FiInstagram />
-            </a>
+            </MagneticWrapper>
           </div>
         </motion.div>
 
@@ -94,14 +95,16 @@ function Contact() {
             onChange={handleChange}
             required
           />
-          <button
+          <motion.button
             className={styles.btn}
             type="submit"
             disabled={status === 'sending'}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             {status === 'sending' ? 'Enviando...' : 'Enviar mensagem'}
             <FiSend />
-          </button>
+          </motion.button>
           {status === 'sent' && <p className={styles.success}>Mensagem enviada com sucesso!</p>}
           {status === 'error' && <p className={styles.error}>Erro ao enviar. Tente novamente.</p>}
         </motion.form>

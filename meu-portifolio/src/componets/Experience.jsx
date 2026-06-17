@@ -47,6 +47,7 @@ function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ x: 6 }}
             >
               <div className={styles.line}>
                 <div className={styles.dot} />

@@ -6,18 +6,32 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 4rem;
+  padding: 1.75rem 4rem;
   z-index: 100;
   mix-blend-mode: difference;
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
 }
 
 .logo {
   font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   color: #fff;
+  text-decoration: none;
 }
 
 .links {
@@ -26,29 +40,46 @@
 }
 
 .links a {
-  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
   font-weight: 400;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  transition: color 0.3s ease;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.4s ease;
+  position: relative;
+}
+
+.links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.4s ease;
 }
 
 .links a:hover {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.links a:hover::after {
+  width: 100%;
 }
 
 @media (max-width: 768px) {
   .nav {
-    padding: 1.2rem 1.5rem;
+    padding: 1.25rem 1.5rem;
   }
 
   .links {
-    gap: 1.2rem;
+    gap: 1rem;
   }
 
   .links a {
-    font-size: 0.7rem;
-    letter-spacing: 1px;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
   }
 }

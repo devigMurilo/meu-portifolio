@@ -11,23 +11,24 @@
 
 .tag {
   display: inline-block;
-  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(184, 184, 184, 0.15);
+  border: 1px solid rgba(184, 184, 184, 0.12);
   padding: 0.3rem 0.8rem;
   border-radius: 2px;
 }
 
 .heading {
   font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .header {
@@ -43,7 +44,8 @@
 }
 
 .categoryTitle {
-  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -68,21 +70,23 @@
   border-radius: 4px;
   text-align: center;
   cursor: default;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover {
-  border-color: rgba(229, 216, 192, 0.2);
-  background: rgba(229, 216, 192, 0.06);
+  border-color: rgba(229, 216, 192, 0.15);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
 }
 
 .icon {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 1;
 }
 
 .cardName {
-  font-size: 0.78rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
   font-weight: 400;
   color: var(--text-muted);
   letter-spacing: 0.3px;
@@ -101,7 +105,7 @@
   }
 
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 0.5rem;
   }
 

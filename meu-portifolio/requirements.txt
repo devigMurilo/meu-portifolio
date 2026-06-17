@@ -1,0 +1,59 @@
+# Dependências do Projeto (Node.js)
+
+Este projeto não utiliza Python, portanto não precisa de um arquivo `requirements.txt` tradicional para instalar bibliotecas via `pip`. Como este é um projeto em **Node.js** (JavaScript), o gerenciamento de pacotes é feito pelo **NPM** através dos arquivos `package.json`.
+
+As dependências já estão configuradas nos arquivos `package.json`.
+
+## O que é necessário para rodar o projeto?
+
+Você precisa ter instalado em sua máquina:
+1. **Node.js** (https://nodejs.org/)
+
+---
+
+## Como instalar as dependências e rodar o projeto:
+
+Este projeto possui duas partes: o **Frontend** (React) e o **Backend** (Servidor Node).
+Você precisará de **dois terminais** abertos.
+
+### 1. Rodando o Frontend (Interface)
+Abra um terminal na pasta raiz do projeto (`meu-portifolio`):
+
+```bash
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento do frontend
+npm run dev
+```
+Isso iniciará o frontend, geralmente acessível em `http://localhost:5173`.
+
+### 2. Rodando o Backend (Servidor)
+Abra um **novo terminal**, navegue até a pasta `server`:
+
+```bash
+# Entre na pasta do servidor
+cd server
+
+# Instale as dependências do backend
+npm install
+
+# Inicie o servidor do backend
+npm run dev
+```
+Isso iniciará o servidor, que conectará com o banco de dados/enviará emails (rodando na porta configurada, por exemplo, 3000).
+
+---
+
+## Resumo das Principais Bibliotecas Utilizadas:
+
+**Frontend (React/Vite):**
+- React & React DOM
+- Framer Motion (para animações)
+- Vite (para o build e servidor de desenvolvimento)
+
+**Backend (Node.js/Express):**
+- Express (para criar a API)
+- CORS (para permitir acesso do frontend ao backend)
+- Dotenv (para variáveis de ambiente)
+- Nodemailer (para envio de emails)

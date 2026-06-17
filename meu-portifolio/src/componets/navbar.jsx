@@ -1,24 +1,46 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import MagneticWrapper from './MagneticWrapper';
 import styles from './navbar.module.css';
 
 function Navbar() {
+  const [hidden, setHidden] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    let lastScroll = 0;
+
+    const onScroll = () => {
+      const current = window.scrollY;
+      if (current > 80 && current > lastScroll) {
+        setHidden(true);
+      } else if (current < 80 || current < lastScroll) {
+        setHidden(false);
+      }
+      lastScroll = current;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const navClass = mounted
+    ? `${styles.nav} ${styles.visible} ${hidden ? styles.hidden : ''}`
+    : styles.nav;
+
   return (
-    <motion.nav
-      className={styles.nav}
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <a href="#" className={styles.logo}>Igor Murilo</a>
+    <nav className={navClass}>
+      <MagneticWrapper as="a" href="#" className={styles.logo} strength={0.35}>
+        IM
+      </MagneticWrapper>
       <div className={styles.links}>
-        <a href="#about">Sobre</a>
-        <a href="#skills">Tecnologias</a>
-        <a href="#projects">Projetos</a>
-        <a href="#experience">Experiência</a>
-        <a href="#contact">Contato</a>
+        <MagneticWrapper as="a" href="#about" strength={0.25}>Sobre</MagneticWrapper>
+        <MagneticWrapper as="a" href="#skills" strength={0.25}>Tecnologias</MagneticWrapper>
+        <MagneticWrapper as="a" href="#projects" strength={0.25}>Projetos</MagneticWrapper>
+        <MagneticWrapper as="a" href="#experience" strength={0.25}>Experiência</MagneticWrapper>
+        <MagneticWrapper as="a" href="#contact" strength={0.25}>Contato</MagneticWrapper>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
 

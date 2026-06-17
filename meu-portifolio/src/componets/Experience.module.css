@@ -11,23 +11,24 @@
 
 .tag {
   display: inline-block;
-  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(184, 184, 184, 0.15);
+  border: 1px solid rgba(184, 184, 184, 0.12);
   padding: 0.3rem 0.8rem;
   border-radius: 2px;
 }
 
 .heading {
   font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .header {
@@ -42,6 +43,11 @@
 .item {
   display: flex;
   gap: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.item:hover {
+  transform: translateX(4px);
 }
 
 .line {
@@ -59,6 +65,12 @@
   border-radius: 50%;
   background: var(--text-main);
   flex-shrink: 0;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.item:hover .dot {
+  transform: scale(1.6);
+  box-shadow: 0 0 24px rgba(229, 216, 192, 0.12);
 }
 
 .connector {
@@ -77,9 +89,10 @@
 }
 
 .period {
-  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
   font-weight: 500;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-dim);
   display: block;
@@ -88,20 +101,24 @@
 
 .role {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 0.2rem;
+  letter-spacing: -0.01em;
 }
 
 .company {
-  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
   color: var(--text-muted);
   display: block;
   margin-bottom: 1rem;
 }
 
 .desc {
+  font-family: var(--font-body);
   font-size: 0.85rem;
   line-height: 1.7;
   color: var(--text-muted);

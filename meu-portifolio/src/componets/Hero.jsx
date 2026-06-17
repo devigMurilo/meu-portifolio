@@ -1,92 +1,140 @@
-import React, { useRef } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { FiArrowDown } from 'react-icons/fi';
+import React, { useRef, useEffect, useCallback } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { gsap } from 'gsap';
+import MagneticWrapper from './MagneticWrapper';
 import styles from './Hero.module.css';
+
+function InteractiveLetter({ char }) {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const scale = useMotionValue(1);
+  const springX = useSpring(x, { stiffness: 150, damping: 18 });
+  const springY = useSpring(y, { stiffness: 150, damping: 18 });
+  const springScale = useSpring(scale, { stiffness: 200, damping: 20 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 180) {
+        const factor = 1 - dist / 180;
+        x.set(-dx * factor * 0.3);
+        y.set(-dy * factor * 0.3);
+        scale.set(1 + factor * 0.08);
+      } else {
+        x.set(0);
+        y.set(0);
+        scale.set(1);
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [x, y, scale]);
+
+  return (
+    <motion.span
+      ref={ref}
+      style={{
+        display: 'inline-block',
+        x: springX,
+        y: springY,
+        scale: springScale,
+      }}
+    >
+      {char}
+    </motion.span>
+  );
+}
 
 function Hero() {
   const sectionRef = useRef(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
+  const titleX = useTransform(mouseX, [0, 1], [-15, 15]);
+  const titleY = useTransform(mouseY, [0, 1], [-10, 10]);
 
-  const handleMouseMove = (e) => {
-    const rect = sectionRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-  };
+  const handleMouseMove = useCallback((e) => {
+    mouseX.set(e.clientX / window.innerWidth);
+    mouseY.set(e.clientY / window.innerHeight);
+  }, [mouseX, mouseY]);
 
-  const textX = useTransform(mouseX, [0, 1], [10, -10]);
-  const textY = useTransform(mouseY, [0, 1], [10, -10]);
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [handleMouseMove]);
 
   const scrollNext = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        `.${styles.letterReveal}`,
+        { y: '110%', rotate: 6, opacity: 0 },
+        { y: '0%', rotate: 0, opacity: 1, duration: 1.6, stagger: 0.04, ease: 'power4.out', delay: 0.15 }
+      );
+      gsap.fromTo(
+        `.${styles.subtitle}`,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 1.3 }
+      );
+      gsap.fromTo(
+        `.${styles.scrollArrow}`,
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 1.8 }
+      );
+    });
+    return () => ctx.revert();
+  }, []);
+
+  const chars = "PORTFÓLIO".split('');
+
   return (
-    <section
-      id="hero"
-      className={styles.hero}
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-    >
-      <div className={styles.topLeft}>
-        <motion.span
-          className={styles.label}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
+    <section id="hero" className={styles.hero} ref={sectionRef}>
+      <div className={styles.centerContent}>
+        <motion.div
+          className={styles.titleRow}
+          style={{ x: titleX, y: titleY }}
         >
+          <h1 className={styles.title}>
+            {chars.map((char, index) => (
+              <span key={index} className={styles.letterMask}>
+                <span className={styles.letterReveal}>
+                  <InteractiveLetter char={char} />
+                </span>
+              </span>
+            ))}
+          </h1>
+        </motion.div>
+
+        <span className={styles.subtitle}>
           Desenvolvedor Full Stack
-        </motion.span>
-      </div>
+        </span>
 
-      <div className={styles.topRight}>
-        <motion.button
-          className={styles.arrowBtn}
-          onClick={scrollNext}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.4, duration: 0.5 }}
-          whileHover={{ scale: 1.1 }}
-        >
-          <FiArrowDown />
-        </motion.button>
-      </div>
-
-      <motion.div
-        className={styles.textWrapper}
-        style={{ x: textX, y: textY }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <span className={styles.textOutline}>PORT</span>
-        <span className={styles.textSolid}>FÓLIO</span>
-      </motion.div>
-
-      <div className={styles.bottomLeft}>
-        <motion.span
-          className={styles.name}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
-        >
-          Igor Murilo
-        </motion.span>
+        <button className={styles.scrollArrow} onClick={scrollNext}>
+          ↓
+        </button>
       </div>
 
       <div className={styles.bottomRight}>
-        <motion.a
+        <MagneticWrapper
+          as="a"
           href="https://www.igormurilo.dev"
           target="_blank"
           rel="noreferrer"
           className={styles.domain}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
+          strength={0.4}
         >
           www.igormurilo.dev
-        </motion.a>
+        </MagneticWrapper>
       </div>
     </section>
   );

@@ -11,23 +11,24 @@
 
 .tag {
   display: inline-block;
-  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(184, 184, 184, 0.15);
+  border: 1px solid rgba(184, 184, 184, 0.12);
   padding: 0.3rem 0.8rem;
   border-radius: 2px;
 }
 
 .heading {
   font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .header {
@@ -48,12 +49,13 @@
   border: 1px solid var(--surface-border);
   border-radius: 4px;
   text-decoration: none;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover {
-  border-color: rgba(229, 216, 192, 0.15);
-  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(229, 216, 192, 0.12);
+  background: var(--surface-hover);
+  transform: translateY(-3px);
 }
 
 .cardTop {
@@ -65,7 +67,7 @@
 
 .cardIndex {
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
   color: var(--text-dim);
   letter-spacing: 1px;
@@ -74,23 +76,25 @@
 .cardIcon {
   font-size: 1rem;
   color: var(--text-dim);
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover .cardIcon {
   color: var(--text-main);
+  transform: translate(2px, -2px);
 }
 
 .cardTitle {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 0.75rem;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .cardDesc {
+  font-family: var(--font-body);
   font-size: 0.85rem;
   line-height: 1.7;
   color: var(--text-muted);
@@ -109,7 +113,8 @@
 }
 
 .stackTag {
-  font-size: 0.65rem;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
   font-weight: 400;
   letter-spacing: 0.5px;
   text-transform: uppercase;

@@ -5,6 +5,7 @@ import Hero from './componets/Hero.jsx';
 import About from './componets/About.jsx';
 import Skills from './componets/skills.jsx';
 import Projects from './componets/Projects.jsx';
+import Experience from './componets/Experience.jsx';
 import Contact from './componets/Contact.jsx';
 import Admin from './componets/Admin.jsx';
 
@@ -31,6 +32,7 @@ function App() {
         <About />
         <Skills />
         <Projects />
+        <Experience />
         <Contact />
       </main>
     </>

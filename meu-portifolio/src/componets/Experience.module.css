@@ -1,0 +1,123 @@
+.section {
+  padding: 10rem 4rem;
+  background: var(--bg-color);
+  position: relative;
+}
+
+.inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(184, 184, 184, 0.15);
+  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+}
+
+.heading {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0;
+  letter-spacing: -0.02em;
+}
+
+.header {
+  margin-bottom: 5rem;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  gap: 2rem;
+}
+
+.line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12px;
+  flex-shrink: 0;
+  padding-top: 0.4rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-main);
+  flex-shrink: 0;
+}
+
+.connector {
+  width: 1px;
+  flex: 1;
+  background: var(--surface-border);
+  margin: 0.3rem 0;
+}
+
+.content {
+  padding-bottom: 3.5rem;
+}
+
+.item:last-child .content {
+  padding-bottom: 0;
+}
+
+.period {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.role {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+}
+
+.company {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 6rem 1.5rem;
+  }
+
+  .item {
+    gap: 1rem;
+  }
+
+  .header {
+    margin-bottom: 3rem;
+  }
+}

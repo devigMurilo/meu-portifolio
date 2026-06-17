@@ -1,17 +1,12 @@
 :root {
-  /* Color Palette */
-  --bg-color: #080b12; /* Deep slate background */
-  --surface-color: rgba(20, 24, 36, 0.6); /* Glassy surface */
-  --surface-border: rgba(255, 255, 255, 0.08);
-  
-  --text-main: #f1f5f9; /* Slate 100 */
-  --text-muted: #94a3b8; /* Slate 400 */
-  
-  --accent-primary: #38bdf8; /* Light Blue 400 */
-  --accent-secondary: #818cf8; /* Indigo 400 */
-  --accent-glow: rgba(56, 189, 248, 0.5);
+  --bg-color: #0D0D0D;
+  --text-main: #E5D8C0;
+  --text-muted: #B8B8B8;
+  --text-dim: rgba(184, 184, 184, 0.4);
+  --accent: #FFFFFF;
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-border: rgba(255, 255, 255, 0.06);
 
-  /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
 
@@ -52,6 +47,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::selection {
-  background: var(--accent-primary);
-  color: #fff;
+  background: var(--text-main);
+  color: var(--bg-color);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(229, 216, 192, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(229, 216, 192, 0.3);
 }

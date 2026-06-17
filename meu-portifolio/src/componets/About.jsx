@@ -2,55 +2,55 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './About.module.css';
 
+const items = [
+  { label: 'Experiência', value: '3+ anos' },
+  { label: 'Stack principal', value: 'Python · Django · SQL' },
+  { label: 'Localização', value: 'São Tomé, RN' },
+  { label: 'Disponibilidade', value: 'Freelance & Estágio' },
+];
+
 function About() {
   return (
-    <section id="about" className={styles.about}>
-      <div className={styles.container}>
-        <motion.div 
-          className={styles.textBlock}
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+    <section id="about" className={styles.section}>
+      <div className={styles.inner}>
+        <motion.div
+          className={styles.col}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className={styles.subtitle}>Sobre mim</p>
-          <h2>Construindo produtos digitais com propósito</h2>
-          <p>
+          <span className={styles.tag}>Sobre Mim</span>
+          <h2 className={styles.heading}>
+            Construindo produtos digitais com propósito
+          </h2>
+          <p className={styles.text}>
             Desenvolvedor full-stack apaixonado por criar experiências digitais
             fluidas e acessíveis. Trabalho com JavaScript/TypeScript, React e
             Node.js para transformar ideias em produtos que resolvem problemas
             reais.
           </p>
-          <p>
+          <p className={styles.text}>
             Atualmente foco em aplicações web responsivas, integrações com APIs
             REST e boas práticas de design systems. Fora do código, estudo UX,
             animo protótipos no Figma e compartilho conteúdo sobre carreira tech.
           </p>
         </motion.div>
-        <motion.ul 
-          className={styles.infoGrid}
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+
+        <motion.div
+          className={styles.col}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          <li>
-            <span>Experiência</span>
-            <strong>3+ anos</strong>
-          </li>
-          <li>
-            <span>Stack principal</span>
-            <strong>Python · Django · SQL</strong>
-          </li>
-          <li>
-            <span>Localização</span>
-            <strong>São Tomé, RN</strong>
-          </li>
-          <li>
-            <span>Disponibilidade</span>
-            <strong>Freelance & Estágio</strong>
-          </li>
-        </motion.ul>
+          {items.map((item) => (
+            <div key={item.label} className={styles.infoRow}>
+              <span className={styles.infoLabel}>{item.label}</span>
+              <strong className={styles.infoValue}>{item.value}</strong>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

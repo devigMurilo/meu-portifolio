@@ -1,113 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createElement } from 'react';
 import { motion } from 'framer-motion';
-import iconMap from './iconMap';
 import styles from './skills.module.css';
+import iconMap from './iconMap';
 
-const apiBaseUrl =
-  import.meta.env.VITE_API_URL?.replace(/\/$/, '') || '';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
+const safeJson = async (url) => {
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+    if (!text) return [];
+    return JSON.parse(text);
+  } catch {
+    return [];
+  }
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+const categoryColors = {
+  Frontend: 'rgba(229, 216, 192, 0.08)',
+  Backend: 'rgba(229, 216, 192, 0.05)',
+  'DevOps & Design': 'rgba(229, 216, 192, 0.04)',
 };
-
-function SkillCard({ name, icon, color, level }) {
-  const Icon = iconMap[icon] || null;
-  return (
-    <motion.div className={styles.skillItem} variants={itemVariants}>
-      <div
-        className={styles.iconWrapper}
-        style={{
-          backgroundColor: `${color}15`,
-          borderColor: `${color}30`,
-        }}
-      >
-        {Icon ? <Icon className={styles.icon} style={{ color }} aria-hidden="true" /> : null}
-      </div>
-      <p className={styles.skillName}>{name}</p>
-      <div className={styles.levelDots} aria-label={`Nível ${level} de 5`}>
-        {[1, 2, 3, 4, 5].map((dot) => (
-          <span
-            key={dot}
-            className={`${styles.dot} ${dot <= level ? styles.dotFilled : ''}`}
-            style={dot <= level ? { backgroundColor: color } : undefined}
-          />
-        ))}
-      </div>
-    </motion.div>
-  );
-}
 
 function Skills() {
   const [skills, setSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${apiBaseUrl}/api/skills`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setSkills(data);
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    safeJson('/api/skills').then((data) => {
+      if (Array.isArray(data)) setSkills(data);
+    });
   }, []);
 
-  const categories = skills.reduce((acc, skill) => {
-    const cat = skill.category || 'Geral';
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(skill);
+  const grouped = skills.reduce((acc, skill) => {
+    if (!acc[skill.category]) acc[skill.category] = [];
+    acc[skill.category].push(skill);
     return acc;
   }, {});
 
   return (
-    <section id="skills" className={styles.skillsSection}>
-      <motion.div
-        className={styles.container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-100px' }}
-        variants={containerVariants}
-      >
-        <div className={styles.header}>
-          <p className={styles.subtitle}>Tech Stack</p>
-          <h2 className={styles.title}>Minhas Habilidades</h2>
-        </div>
+    <section id="skills" className={styles.section}>
+      <div className={styles.inner}>
+        <motion.div
+          className={styles.header}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className={styles.tag}>Tecnologias</span>
+          <h2 className={styles.heading}>Ferramentas que domino</h2>
+        </motion.div>
 
-        {loading ? (
-          <p className={styles.empty}>Carregando...</p>
-        ) : Object.keys(categories).length === 0 ? (
-          <p className={styles.empty}>Nenhuma habilidade cadastrada.</p>
-        ) : (
-          Object.entries(categories).map(([category, catSkills], i) => (
-            <motion.div
-              key={category}
-              className={styles.categoryBlock}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { delay: i * 0.1 } },
-              }}
-            >
-              <h3 className={styles.categoryTitle}>{category}</h3>
-              <motion.div
-                className={styles.skillsGrid}
-                variants={containerVariants}
-              >
-                {catSkills.map((skill) => (
-                  <SkillCard key={skill.id} {...skill} />
-                ))}
-              </motion.div>
-            </motion.div>
-          ))
+        {Object.entries(grouped).map(([category, items], catIdx) => (
+          <motion.div
+            key={category}
+            className={styles.category}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: catIdx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h3 className={styles.categoryTitle}>{category}</h3>
+            <div className={styles.grid}>
+              {items.map((skill, i) => (
+                <motion.div
+                  key={skill.id}
+                  className={styles.card}
+                  style={{
+                    '--card-bg': categoryColors[skill.category] || 'rgba(229, 216, 192, 0.03)',
+                    '--skill-color': skill.color,
+                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  whileHover={{ y: -4 }}
+                >
+                  <span className={styles.icon} style={{ color: skill.color }}>
+                    {iconMap[skill.icon] ? createElement(iconMap[skill.icon]) : '?'}
+                  </span>
+                  <span className={styles.cardName}>{skill.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+
+        {skills.length === 0 && (
+          <p className={styles.empty}>
+            Nenhuma habilidade carregada. Certifique-se de que o servidor está rodando.
+          </p>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 }

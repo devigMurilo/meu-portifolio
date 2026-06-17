@@ -1,137 +1,115 @@
-.skillsSection {
-  padding: 8rem 5%;
+.section {
+  padding: 10rem 4rem;
+  background: var(--bg-color);
   position: relative;
 }
 
-.container {
+.inner {
   max-width: 1200px;
   margin: 0 auto;
 }
 
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(184, 184, 184, 0.15);
+  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+}
+
+.heading {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0;
+  letter-spacing: -0.02em;
+}
+
 .header {
-  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.category {
   margin-bottom: 4rem;
 }
 
-.subtitle {
-  display: inline-block;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  color: var(--accent-primary);
-  padding: 0.4rem 1rem;
-  border-radius: 2rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.title {
-  font-size: clamp(2.2rem, 5vw, 3rem);
-  color: var(--text-main);
-  line-height: 1.2;
-}
-
-.categoryBlock {
-  margin-bottom: 3.5rem;
-}
-
-.categoryBlock:last-child {
+.category:last-child {
   margin-bottom: 0;
 }
 
 .categoryTitle {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px;
   text-transform: uppercase;
+  color: var(--text-dim);
   margin-bottom: 1.5rem;
-  padding-left: 0.5rem;
-  border-left: 3px solid var(--accent-primary);
 }
 
-.skillsGrid {
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
 }
 
-.skillItem {
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.8rem 1rem 1.4rem;
-  border-radius: 16px;
-  background: var(--surface-color);
-  backdrop-filter: blur(12px);
+  gap: 0.6rem;
+  padding: 1.5rem 1rem;
+  background: var(--card-bg);
   border: 1px solid var(--surface-border);
-  transition: all 0.3s ease;
+  border-radius: 4px;
+  text-align: center;
   cursor: default;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
-.skillItem:hover {
-  transform: translateY(-5px) scale(1.02);
-  border-color: rgba(56, 189, 248, 0.4);
-  background: rgba(20, 24, 36, 0.8);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.iconWrapper {
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  margin-bottom: 1rem;
-  border: 1px solid;
-  transition: transform 0.3s ease;
-}
-
-.skillItem:hover .iconWrapper {
-  transform: scale(1.1) rotate(5deg);
+.card:hover {
+  border-color: rgba(229, 216, 192, 0.2);
+  background: rgba(229, 216, 192, 0.06);
 }
 
 .icon {
-  font-size: 1.7rem;
+  font-size: 1.6rem;
+  line-height: 1;
 }
 
-.skillName {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  margin: 0 0 0.75rem;
-  text-align: center;
-}
-
-.levelDots {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.skillItem:hover .dot {
-  transform: scale(1.2);
-}
-
-.dotFilled {
-  border-color: transparent;
+.cardName {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
 }
 
 .empty {
   text-align: center;
-  color: var(--text-muted);
-  padding: 2rem;
-  font-size: 1.1rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  padding: 3rem 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 6rem 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .card {
+    padding: 1rem 0.8rem;
+  }
+
+  .header {
+    margin-bottom: 3rem;
+  }
 }

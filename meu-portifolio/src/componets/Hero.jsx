@@ -1,91 +1,93 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { SiGithub, SiLinkedin, SiInstagram } from 'react-icons/si';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { FiArrowDown } from 'react-icons/fi';
 import styles from './Hero.module.css';
-import profileImage from '../assets/fotonacasadepraia.jpg';
 
 function Hero() {
+  const sectionRef = useRef(null);
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  const handleMouseMove = (e) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set((e.clientX - rect.left) / rect.width);
+    mouseY.set((e.clientY - rect.top) / rect.height);
+  };
+
+  const textX = useTransform(mouseX, [0, 1], [10, -10]);
+  const textY = useTransform(mouseY, [0, 1], [10, -10]);
+
+  const scrollNext = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section id="hero" className={styles.hero}>
-      <motion.div 
-        className={styles.heroContent}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+    <section
+      id="hero"
+      className={styles.hero}
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+    >
+      <div className={styles.topLeft}>
+        <motion.span
+          className={styles.label}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+        >
+          Desenvolvedor Full Stack
+        </motion.span>
+      </div>
+
+      <div className={styles.topRight}>
+        <motion.button
+          className={styles.arrowBtn}
+          onClick={scrollNext}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.4, duration: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+        >
+          <FiArrowDown />
+        </motion.button>
+      </div>
+
+      <motion.div
+        className={styles.textWrapper}
+        style={{ x: textX, y: textY }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
-        <motion.div 
-          className={styles.profileImageWrapper}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <div className={styles.imageGlow}></div>
-          <img
-            src={profileImage}
-            alt="Foto de Igor"
-            className={styles.profileImage}
-          />
-        </motion.div>
-        
-        <motion.div 
-          className={styles.badges}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <span className={styles.tagline}>Software Development</span>
-          <span className={styles.tagline}>Web Development</span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          Olá, eu sou <span>Igor</span>
-        </motion.h1>
-        
-        <motion.p 
-          className={styles.lead}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          Crio experiências web escaláveis, acessíveis e com foco em impacto de negócio.
-          Combino front-end moderno com back-end robusto para entregar soluções completas.
-        </motion.p>
-        
-        <motion.div 
-          className={styles.socialLinks}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-        >
-          <a href="https://github.com/devigMurilo" target="_blank" rel="noreferrer" aria-label="GitHub">
-            <SiGithub />
-          </a>
-          <a href="https://www.linkedin.com/in/igor-murilo-68a487386/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            <SiLinkedin />
-          </a>
-          <a href="https://instagram.com/_imurilo" target="_blank" rel="noreferrer" aria-label="Instagram">
-            <SiInstagram />
-          </a>
-        </motion.div>
-
-        <motion.div 
-          className={styles.actions}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-        >
-          <a href="#projects" className={styles.primaryBtn}>
-            Veja meus projetos
-          </a>
-          <a href="#contact" className={styles.secondaryBtn}>
-            Agende uma conversa
-          </a>
-        </motion.div>
+        <span className={styles.textOutline}>PORT</span>
+        <span className={styles.textSolid}>FÓLIO</span>
       </motion.div>
+
+      <div className={styles.bottomLeft}>
+        <motion.span
+          className={styles.name}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.6 }}
+        >
+          Igor Murilo
+        </motion.span>
+      </div>
+
+      <div className={styles.bottomRight}>
+        <motion.a
+          href="https://www.igormurilo.dev"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.domain}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.6 }}
+        >
+          www.igormurilo.dev
+        </motion.a>
+      </div>
     </section>
   );
 }

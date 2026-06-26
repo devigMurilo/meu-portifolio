@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "period": "2026",
+    "role": "Formando",
+    "company": "IFRN - SPP",
+    "desc": "Estou me formando no curso e quero crescer mais na área.",
+    "published": true
+  },
+  {
+    "id": 2,
+    "period": "2024 — 2025",
+    "role": "Projetos Acadêmicos",
+    "company": "IFRN - SPP",
+    "desc": "Desenvolvi projetos acadêmicos. Confira no meu <a href=\"https://github.com/devigMurilo\" target=\"_blank\" rel=\"noreferrer\" style=\"text-decoration: underline;\">GitHub</a>.",
+    "published": true
+  },
+  {
+    "id": 3,
+    "period": "2023",
+    "role": "Início do Curso",
+    "company": "IFRN - SPP",
+    "desc": "Ingressei no curso de Informática para Internet no IFRN SPP.",
+    "published": true
+  }
+]

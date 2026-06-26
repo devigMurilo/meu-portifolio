@@ -35,6 +35,7 @@ app.use(express.json());
 const DATA_DIR = path.resolve(__dirname, '..', 'data');
 const PROJECTS_FILE = path.join(DATA_DIR, 'projects.json');
 const SKILLS_FILE = path.join(DATA_DIR, 'skills.json');
+const EXPERIENCES_FILE = path.join(DATA_DIR, 'experiences.json');
 
 function readProjects() {
   try {
@@ -58,6 +59,18 @@ function readSkills() {
 
 function writeSkills(skills) {
   fs.writeFileSync(SKILLS_FILE, JSON.stringify(skills, null, 2), 'utf-8');
+}
+
+function readExperiences() {
+  try {
+    return JSON.parse(fs.readFileSync(EXPERIENCES_FILE, 'utf-8'));
+  } catch {
+    return [];
+  }
+}
+
+function writeExperiences(experiences) {
+  fs.writeFileSync(EXPERIENCES_FILE, JSON.stringify(experiences, null, 2), 'utf-8');
 }
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
@@ -238,6 +251,70 @@ app.delete('/api/skills/:id', requireAdmin, (req, res) => {
   }
   const removed = skills.splice(index, 1)[0];
   writeSkills(skills);
+  res.json(removed);
+});
+
+app.get('/api/experiences', (req, res) => {
+  const token = req.headers['x-admin-token'];
+  const isAdmin = token === ADMIN_PASSWORD;
+  const experiences = readExperiences();
+  // Sort experiences by period descending simply (or leave as is). Let's just leave it ordered as saved.
+  const filtered = isAdmin ? experiences : experiences.filter((e) => e.published);
+  res.json(filtered);
+});
+
+app.post('/api/experiences', requireAdmin, (req, res) => {
+  const { period, role, company, desc, published } = req.body;
+  if (!role?.trim()) {
+    return res.status(400).json({ error: 'Cargo/Papel é obrigatório.' });
+  }
+  const experiences = readExperiences();
+  const id = experiences.length > 0 ? Math.max(...experiences.map((e) => e.id)) + 1 : 1;
+  const experience = { 
+    id, 
+    period: period?.trim() || '', 
+    role: role.trim(), 
+    company: company?.trim() || '', 
+    desc: desc?.trim() || '', 
+    published: !!published 
+  };
+  experiences.push(experience);
+  writeExperiences(experiences);
+  res.status(201).json(experience);
+});
+
+app.put('/api/experiences/:id', requireAdmin, (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { period, role, company, desc, published } = req.body;
+  const experiences = readExperiences();
+  const index = experiences.findIndex((e) => e.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Experiência não encontrada.' });
+  }
+  if (!role?.trim()) {
+    return res.status(400).json({ error: 'Cargo/Papel é obrigatório.' });
+  }
+  experiences[index] = { 
+    id, 
+    period: period?.trim() || '', 
+    role: role.trim(), 
+    company: company?.trim() || '', 
+    desc: desc?.trim() || '', 
+    published: !!published 
+  };
+  writeExperiences(experiences);
+  res.json(experiences[index]);
+});
+
+app.delete('/api/experiences/:id', requireAdmin, (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const experiences = readExperiences();
+  const index = experiences.findIndex((e) => e.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Experiência não encontrada.' });
+  }
+  const removed = experiences.splice(index, 1)[0];
+  writeExperiences(experiences);
   res.json(removed);
 });
 

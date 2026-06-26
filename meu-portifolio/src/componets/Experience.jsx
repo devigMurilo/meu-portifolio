@@ -1,29 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Experience.module.css';
 
-const experiences = [
-  {
-    period: '2024 — Presente',
-    role: 'Desenvolvedor Full Stack Freelance',
-    company: 'Autônomo',
-    desc: 'Desenvolvimento de aplicações web completas utilizando React, Node.js e bancos de dados relacionais. Criação de APIs REST e integração com serviços de terceiros.',
-  },
-  {
-    period: '2023 — 2024',
-    role: 'Estagiário em Desenvolvimento Web',
-    company: 'IFRN',
-    desc: 'Atuei no suporte e desenvolvimento de sistemas internos, manutenção de sites institucionais e criação de dashboards administrativos.',
-  },
-  {
-    period: '2022 — 2023',
-    role: 'Projetos Acadêmicos',
-    company: 'IFRN - SPP',
-    desc: 'Desenvolvimento de sistemas como trabalho de conclusão de curso e projetos de extensão, incluindo sistemas de reservas e cadastro.',
-  },
-];
+const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, '') || '';
+
+const safeJson = async (url) => {
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+    if (!text) return [];
+    return JSON.parse(text);
+  } catch {
+    return [];
+  }
+};
 
 function Experience() {
+  const [experiences, setExperiences] = useState([]);
+
+  useEffect(() => {
+    safeJson(`${apiBaseUrl}/api/experiences`).then((data) => {
+      if (Array.isArray(data)) setExperiences(data);
+    });
+  }, []);
+
   return (
     <section id="experience" className={styles.section}>
       <div className={styles.inner}>
@@ -41,7 +41,7 @@ function Experience() {
         <div className={styles.timeline}>
           {experiences.map((exp, i) => (
             <motion.div
-              key={i}
+              key={exp.id || i}
               className={styles.item}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -57,11 +57,16 @@ function Experience() {
                 <span className={styles.period}>{exp.period}</span>
                 <h3 className={styles.role}>{exp.role}</h3>
                 <span className={styles.company}>{exp.company}</span>
-                <p className={styles.desc}>{exp.desc}</p>
+                <p className={styles.desc} dangerouslySetInnerHTML={{ __html: exp.desc }}></p>
               </div>
             </motion.div>
           ))}
         </div>
+        {experiences.length === 0 && (
+          <p style={{ textAlign: 'center', opacity: 0.7, marginTop: '2rem' }}>
+            Nenhuma experiência carregada. Certifique-se de que o servidor está rodando.
+          </p>
+        )}
       </div>
     </section>
   );

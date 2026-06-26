@@ -189,10 +189,87 @@ function Admin() {
     }
   }
 
+  // --- Experiences ---
+  const [experiences, setExperiences] = useState([]);
+  const [expEditingId, setExpEditingId] = useState(null);
+  const [expForm, setExpForm] = useState({ period: '', role: '', company: '', desc: '', published: false });
+  const [expSaving, setExpSaving] = useState(false);
+  const [expError, setExpError] = useState('');
+
+  const loadExperiences = useCallback(() => {
+    fetch(`${apiBaseUrl}/api/experiences`, { headers: authHeaders() })
+      .then(safeJson)
+      .then(setExperiences)
+      .catch(() => setExperiences([]));
+  }, [authHeaders]);
+
+  function expOpenNew() {
+    setExpEditingId(null);
+    setExpForm({ period: '', role: '', company: '', desc: '', published: false });
+    setExpError('');
+  }
+
+  function expOpenEdit(exp) {
+    setExpEditingId(exp.id);
+    setExpForm({
+      period: exp.period || '',
+      role: exp.role || '',
+      company: exp.company || '',
+      desc: exp.desc || '',
+      published: exp.published ?? false,
+    });
+    setExpError('');
+  }
+
+  async function expHandleSave(e) {
+    e.preventDefault();
+    setExpError('');
+    if (!expForm.role.trim()) return setExpError('O cargo/papel é obrigatório.');
+
+    setExpSaving(true);
+    const body = {
+      period: expForm.period.trim(),
+      role: expForm.role.trim(),
+      company: expForm.company.trim(),
+      desc: expForm.desc.trim(),
+      published: expForm.published,
+    };
+    const url = expEditingId
+      ? `${apiBaseUrl}/api/experiences/${expEditingId}`
+      : `${apiBaseUrl}/api/experiences`;
+    const method = expEditingId ? 'PUT' : 'POST';
+
+    try {
+      const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) });
+      if (!res.ok) {
+        const data = await safeJson(res).catch(() => ({}));
+        throw new Error(data.error || 'Erro ao salvar.');
+      }
+      await loadExperiences();
+      expOpenNew();
+    } catch (err) {
+      setExpError(err.message);
+    } finally {
+      setExpSaving(false);
+    }
+  }
+
+  async function expHandleDelete(id) {
+    if (!window.confirm('Excluir esta experiência?')) return;
+    try {
+      const res = await fetch(`${apiBaseUrl}/api/experiences/${id}`, { method: 'DELETE', headers: authHeaders() });
+      if (!res.ok) throw new Error('Erro ao excluir.');
+      await loadExperiences();
+      if (expEditingId === id) expOpenNew();
+    } catch (err) {
+      setExpError(err.message);
+    }
+  }
+
   // --- Init ---
   useEffect(() => {
-    if (loggedIn) { loadProjects(); loadSkills(); }
-  }, [loggedIn, loadProjects, loadSkills]);
+    if (loggedIn) { loadProjects(); loadSkills(); loadExperiences(); }
+  }, [loggedIn, loadProjects, loadSkills, loadExperiences]);
 
   // --- Login ---
   function handleLogin(e) {
@@ -258,6 +335,7 @@ function Admin() {
         <div className={styles.tabs}>
           <button className={`${styles.tab} ${tab === 'projects' ? styles.tabActive : ''}`} onClick={() => setTab('projects')}>Projetos</button>
           <button className={`${styles.tab} ${tab === 'skills' ? styles.tabActive : ''}`} onClick={() => setTab('skills')}>Habilidades</button>
+          <button className={`${styles.tab} ${tab === 'experiences' ? styles.tabActive : ''}`} onClick={() => setTab('experiences')}>Experiências</button>
         </div>
 
         {tab === 'projects' && (
@@ -385,6 +463,56 @@ function Admin() {
                     </div>
                   );
                 })
+              )}
+            </div>
+          </>
+        )}
+
+        {tab === 'experiences' && (
+          <>
+            <div className={styles.sectionHeader}>
+              <h2>Gerenciar Experiências</h2>
+              <button className={styles.btnPrimary} onClick={expOpenNew}>+ Nova Experiência</button>
+            </div>
+            {expError && <p className={styles.error}>{expError}</p>}
+            <form className={styles.form} onSubmit={expHandleSave}>
+              <h3>{expEditingId ? 'Editar Experiência' : 'Nova Experiência'}</h3>
+              <label>Período
+                <input type="text" value={expForm.period} onChange={(e) => setExpForm({ ...expForm, period: e.target.value })} placeholder="ex: 2026, 2024 - Presente" />
+              </label>
+              <label>Cargo / Papel *
+                <input type="text" value={expForm.role} onChange={(e) => setExpForm({ ...expForm, role: e.target.value })} placeholder="ex: Formando, Desenvolvedor" />
+              </label>
+              <label>Empresa / Instituição
+                <input type="text" value={expForm.company} onChange={(e) => setExpForm({ ...expForm, company: e.target.value })} placeholder="ex: IFRN - SPP" />
+              </label>
+              <label>Descrição (Suporta HTML para links)
+                <textarea value={expForm.desc} onChange={(e) => setExpForm({ ...expForm, desc: e.target.value })} placeholder='ex: Texto com <a href="...">Link</a>' rows={4} />
+              </label>
+              <label className={styles.checkboxLabel}>
+                <input type="checkbox" checked={expForm.published} onChange={(e) => setExpForm({ ...expForm, published: e.target.checked })} />
+                Experiência publicada
+              </label>
+              <div className={styles.formActions}>
+                <button type="submit" className={styles.btnPrimary} disabled={expSaving}>{expSaving ? 'Salvando...' : expEditingId ? 'Atualizar' : 'Criar'}</button>
+                {expEditingId && <button type="button" className={styles.btnCancel} onClick={expOpenNew}>Cancelar</button>}
+              </div>
+            </form>
+            <div className={styles.itemList}>
+              {experiences.length === 0 ? <p className={styles.empty}>Nenhuma experiência cadastrada.</p> : (
+                experiences.map((exp) => (
+                  <div key={exp.id} className={styles.itemCard}>
+                    <div>
+                      <strong>{exp.role}</strong>
+                      <span className={styles.itemStack}>{exp.period} · {exp.company}</span>
+                      <span className={exp.published ? styles.badgePublished : styles.badgeDraft}>{exp.published ? 'Publicado' : 'Rascunho'}</span>
+                    </div>
+                    <div className={styles.cardActions}>
+                      <button className={styles.btnEdit} onClick={() => expOpenEdit(exp)}>Editar</button>
+                      <button className={styles.btnDelete} onClick={() => expHandleDelete(exp.id)}>Excluir</button>
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           </>
